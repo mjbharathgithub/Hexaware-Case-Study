@@ -82,7 +82,7 @@ public class CrimeAnalysisServiceImpl implements CrimeAnalysisService {
 
     @Override
     public List<Incident> searchIncidents(String criteria) {
-        String sql = "SELECT * FROM incidents WHERE incident_type LIKE ? OR location LIKE ? OR status LIKE ?";
+        String sql = "select * from incidents where incident_type like ? or location like ? or status like ?";
         List<Incident> incidents = new ArrayList<>();
 
         try (Connection conn = DBConnUtil.getConn();
