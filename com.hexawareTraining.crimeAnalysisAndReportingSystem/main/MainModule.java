@@ -8,12 +8,11 @@ import java.util.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement; // Correct import
+import java.sql.Statement; 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-//import com.hexawareTraining.crimeAnalysisAndReportingSystem.util.*;
 import java.util.Properties;
 import java.util.Scanner;
 
