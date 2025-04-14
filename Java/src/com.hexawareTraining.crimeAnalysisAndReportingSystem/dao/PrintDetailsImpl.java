@@ -32,8 +32,13 @@ public class PrintDetailsImpl implements PrintDetails {
 		
 		if(incidents==null)  {
 			System.err.println("Improper Input\nTry Again");
-			return;
+			
 		}
+		else if(incidents.isEmpty()) {
+			System.out.println("\nNo Incidents For this Case\n");
+			
+		}
+		else {
 		System.out.println("_______Incidents Found_____");
 		for(Incident incident: incidents) {
 		System.out.println("Incident ID : "+incident.getIncidentId());
@@ -44,6 +49,7 @@ public class PrintDetailsImpl implements PrintDetails {
 		System.out.println("Incident Status : "+incident.getStatus());
 		System.out.println("--------------------------------------------");
 		}
+		}
 		
 	}
 
@@ -52,6 +58,10 @@ public class PrintDetailsImpl implements PrintDetails {
 	@Override
 	public void printCase(Case case1) {
 		// TODO Auto-generated method stub
+		if(case1.getCaseId()==0) {
+			System.err.println("Case not Found \nTry Again");
+			return;
+		}
 		if(case1==null)  {
 			System.err.println("Improper Input\nTry Again");
 			return;
