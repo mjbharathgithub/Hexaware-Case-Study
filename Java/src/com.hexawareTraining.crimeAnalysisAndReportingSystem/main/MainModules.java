@@ -116,29 +116,52 @@ public class MainModule {
                     break;
                     
                 case 7:
-                	Case case2= processor.getCaseDetails(input.getCaseByIdInput());
+                	System.out.println("************** Search Case By ID **************");
+                	int caseId=input.getCaseByIdInput();
+                	if(caseId==0) break;
+                	Case case2= processor.getCaseDetails(caseId);
+                	if(case2==null) break;
+//                	System.out.println("Case : "+case2.getCaseId()+" "+case2.getCaseDescription());
                 	output.printCase(case2);
                 	break;
                 	
                 case 8:
-                	System.out.println("Update Case Details");
-                	Case case3=processor.getCaseDetails(input.getCaseByIdInput());
-                	input.updateCaseInput(case3);
+                	System.out.println("************** Update Case Details By ID **************");
+                	int caseID= input.getCaseByIdInput();
+                	if(caseID==0) break;
+                	Case case3=processor.getCaseDetails(caseID);
+                	if(case3==null) {
+//                		case3.setCaseId(0);
+//                		output.printCase(case3);
+                		break;
+                	}
+                	
+                	boolean updateStatus= input.updateCaseInput(case3);
+                	if(!updateStatus) break;
                 	output.printCase(case3);
+                	System.out.println(ANSI_GREEN+"Case is Updated Successfully"+ANSI_RESET);
                 	
                 	break;
                     
                 case 9:
-                	System.out.println("View All Cases");
+                	System.out.println("************** View All Cases **************");
+                
                 	List<Case> cases= processor.getAllCases();
+                	
+                	if(cases==null) {
+                		System.out.println(ANSI_RED+"No Cases to View"+ANSI_RESET);
+                		break;
+                	}
                 	cases.forEach(case5->{
                 		System.out.println();
                 		output.printCase(case5);
                 	});
+                	
+                	System.out.println(ANSI_GREEN+"Cases Have Retrieved Successfully"+ANSI_RESET);
                 	break;
                 	
                 case 10:
-                	System.out.println("Thank You for using CARS");
+                	System.out.println(ANSI_GREEN+"Thank You for using CARS"+ANSI_RESET);
                 	break mainLoop;
                 		
                 
