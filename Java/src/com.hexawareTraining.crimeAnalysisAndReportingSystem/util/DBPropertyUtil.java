@@ -7,19 +7,20 @@ import java.sql.DriverManager;
 import java.util.Properties;
 
 public class DBPropertyUtil{
-    public static String[] getConnectionString() throws IOException {
-    	Properties props = new Properties();
-    	String[] connectionStrings = new String[3];
-        try (InputStream inputStream = new FileInputStream("resources/db.properties"))
-        {			
-            props.load(inputStream);
-            connectionStrings[0] = props.getProperty("db.url");
-            connectionStrings[1] = props.getProperty("db.username");
-            connectionStrings[2] = props.getProperty("db.password");
-            
-//            System.out.println(url+" usename ; "+username+" password : "+password);
-
-            return connectionStrings;
+	public static String getPropertyString(String fileName) {
+		// TODO Auto-generated method stub
+		Properties props = new Properties();
+        try (FileInputStream fis = new FileInputStream(fileName)) {
+            props.load(fis);
+        } catch (IOException e) {
+            System.err.println("Failed to return the connection string");
         }
-    }
+
+        String url =  props.getProperty("db.url");
+        String user = props.getProperty("db.user");
+        String password = props.getProperty("db.password");
+      
+        return url+"|"+ user + "|" + password;
+		
+	}
 }
