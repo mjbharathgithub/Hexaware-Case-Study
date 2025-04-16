@@ -1,38 +1,29 @@
 package com.hexawareTraining.crimeAnalysisAndReportingSystem.dao;
-
-import java.util.ArrayList;
+import com.hexawareTraining.crimeAnalysisAndReportingSystem.service.*;
 import java.sql.Date;
-import java.util.List;
 
 import com.hexawareTraining.crimeAnalysisAndReportingSystem.entity.Case;
 import com.hexawareTraining.crimeAnalysisAndReportingSystem.entity.Incident;
-import com.hexawareTraining.crimeAnalysisAndReportingSystem.entity.Report;
+import com.hexawareTraining.crimeAnalysisAndReportingSystem.exception.IllegalUserInputException;
+import com.hexawareTraining.crimeAnalysisAndReportingSystem.service.CrimeAnalysisServiceImpl;
+import com.hexawareTraining.crimeAnalysisAndReportingSystem.service.PrintDetailsImpl;
 
-public interface CrimeAnalysisService {
-	
-	boolean createIncident(Incident incident) ;
-	
-	boolean updateIncidentStatus(String status,int incidentId);
-	
-	List<Incident> getIncidentsInDateRange(Date startDate,Date endDate);
-	
-	List<Incident> searchIncidents(String criteria);
-	
-	Report generateIncidentReport(Incident incident);
+public interface GetInput {
+	public Incident inputCreateIncident();
+	public String[] updateIncidentStatusInput();
+	public Date[] getIncidentsInDateRangeInput();
+	public String searchIncidentsInput();
+	public void inputEvidenceDetails();
+	public Incident generateIncidentReportInput();
+	public int getCaseByIdInput();
+	public boolean updateCaseInput(Case case1);
+	public void inputOfficerDetails();
+	public void inputLawAgencyDetails();
+	public Case createCaseInput(CrimeAnalysisServiceImpl processor,PrintDetailsImpl ouput);
+	int inputSuspectDetails() throws Exception;
+	boolean genderCheck(String gender);
+	int inputVictimDetails() throws Exception;
+	String getStatus() throws IllegalUserInputException;
 
-	Case createCase(String caseTitle, String caseDescription, List<Incident> incidents);
-
-	Case getCaseDetails(int caseId);
-
-	boolean updateCaseDetails(Case caseObj);
-
-	List<Case> getAllCases();
-
-//	void addIncident(List<Incident> incidents, GetInput input, CrimeAnalysisServiceImpl processor,
-//			PrintDetails output);
-
-	void addIncident(List<Incident> incidents, GetInput input, PrintDetails output);
-	
-	
 
 }
