@@ -6,13 +6,26 @@ import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
 
+
 public class DBConnUtil {
-    public static Connection getConn() throws SQLException, IOException {
-        
-    	String connectionStrings[]=DBPropertyUtil.getConnectionString();
-    	String URL=connectionStrings[0];
-    	String USER_NAME=connectionStrings[1];
-    	String PASSWORD=connectionStrings[2];
-    	return DriverManager.getConnection(URL,USER_NAME,PASSWORD);
+    
+    private static Connection conn;
+
+    public static Connection getConn() {
+        if (conn == null) {
+            try {
+                String connectionString = DBPropertyUtil.getPropertyString("resources/db.properties");
+                String []connectionCredentials= connectionString.split("\\|");
+                String url= connectionCredentials[0];
+                String user= connectionCredentials[1];
+                String password= connectionCredentials[2];
+                
+                conn = DriverManager.getConnection(url,user,password);
+                System.out.println("\u001B[32m"+"Connection to DataBase is established Successfully"+"\u001B[0m");
+            } catch (SQLException e) {
+               System.err.println("Failed To establish connection to Database");
+            }
+        }
+        return conn;
     }
 }
