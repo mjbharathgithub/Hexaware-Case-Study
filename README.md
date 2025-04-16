@@ -4,8 +4,10 @@ System (CARS) that addresses the above-mentioned challenges and provides law enf
 with a robust, user-friendly, and secure platform for crime data management and reporting
 
 ## Schema Design
-![CARSFinal](https://github.com/user-attachments/assets/0c0b9368-26ae-410a-8ee1-ccd40c059b39)
+![C A R S ERD](https://github.com/user-attachments/assets/a05952fe-c2dc-46c6-8545-1a766b5b6a12)
+
 
 
 ## Package Structure
-![image](https://github.com/user-attachments/assets/497f7a9e-83b1-4f92-ad46-f98cff234dc1)
+![image](https://github.com/user-attachments/assets/353c8ccc-a7dd-4ad0-b0e7-e09c7781c7f2)
+
