@@ -57,7 +57,7 @@ public interface CrimeAnalysisService {
 
 	String extractReportDetailsFromResultSet(ResultSet rs) throws SQLException;
 
-	void addIncident(LinkedHashSet<Incident> incidents, GetInputImpl input, PrintDetailsImpl output);
+	void addIncident(List<Incident> incidents, GetInputImpl input, PrintDetailsImpl output);
 
 	List<Incident> filterIncidents(Set<Integer> filterIDs, List<Incident> incidents);
 
