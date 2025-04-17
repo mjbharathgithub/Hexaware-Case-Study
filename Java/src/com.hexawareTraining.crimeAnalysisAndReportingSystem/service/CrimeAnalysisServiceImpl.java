@@ -305,8 +305,7 @@ public class CrimeAnalysisServiceImpl implements CrimeAnalysisService {
         
         Scanner scanner = new Scanner(System.in);
         Report report = new Report();
-        
-        System.out.println("Incident ID : " + incident.getIncidentId());
+
         Connection conn = DBConnUtil.getConn();
              
         try (PreparedStatement pstmt1 = conn.prepareStatement(sqlQuery1);
@@ -566,21 +565,32 @@ public class CrimeAnalysisServiceImpl implements CrimeAnalysisService {
     @Override
     public boolean updateCaseDetails(Case caseObj) {
         String updateSQL = "update cases set case_title = ?, case_description = ?, status = ? where case_id = ?";
-        
+        String updateIncidents = "insert ignore into case_incidents (case_id, incident_id, added_at) values (?, ?, ?)";
+
         Connection conn = DBConnUtil.getConn();
-             try (PreparedStatement stmt = conn.prepareStatement(updateSQL)) {
+             try (PreparedStatement stmt = conn.prepareStatement(updateSQL);
+            	  PreparedStatement insertStmt = conn.prepareStatement(updateIncidents)) {
 
             stmt.setString(1, caseObj.getCaseTitle());
             stmt.setString(2, caseObj.getCaseDescription());
             stmt.setString(3, caseObj.getStatus());
             stmt.setInt(4, caseObj.getCaseId());
 
-            int rows = stmt.executeUpdate();
+            int row = stmt.executeUpdate();
             
-            return rows > 0;
+            for (Incident incident : caseObj.getIncidents()) {
+                insertStmt.setInt(1, caseObj.getCaseId());
+                insertStmt.setInt(2, incident.getIncidentId());
+                insertStmt.setDate(3,new Date(System.currentTimeMillis()));
+                insertStmt.addBatch();
+            }
+            int rows[]= insertStmt.executeBatch();
+            
+            return row > 0&& rows.length>0;
 
         } catch (Exception e) {
             System.err.println("Case ID not found\nTry Again");
+            e.printStackTrace();
         }
 
         return false;
@@ -637,7 +647,7 @@ public class CrimeAnalysisServiceImpl implements CrimeAnalysisService {
     }
 
     @Override
-    public void addIncident(LinkedHashSet<Incident> incidents, GetInputImpl input, PrintDetailsImpl output) {
+    public void addIncident(List<Incident> incidents, GetInputImpl input, PrintDetailsImpl output) {
     	Scanner scanner = new Scanner(System.in);
         secondaryLoop:
         while (true) {
