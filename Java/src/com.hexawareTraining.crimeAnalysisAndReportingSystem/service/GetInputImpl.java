@@ -5,7 +5,12 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.sql.Date;
 import java.util.List;
+//import java.text.ParseException;
+//import java.text.SimpleDateFormat;
+//import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+//import java.util.regex.Matcher;
+//import java.util.regex.Pattern;
 
 import com.hexawareTraining.crimeAnalysisAndReportingSystem.dao.GetInput;
 import com.hexawareTraining.crimeAnalysisAndReportingSystem.entity.*;
@@ -210,7 +215,7 @@ public class GetInputImpl implements GetInput {
 	        Officer officer = new Officer(0,firstName, lastName, badge, rank, contact, agencyId);
 	        int id = processor.createOfficer(officer);
 
-	        if (id != -1) System.out.println("Officer added with ID: " + id);
+	        if (id != -1) System.out.println("\u001B[32m"+"Officer added with ID: " + id+"\u001B[0m");
 	        else System.err.println("Failed to add officer.");
 	        
 	    } catch (InvalidContactException e) {
@@ -395,7 +400,7 @@ public class GetInputImpl implements GetInput {
 	
 	@Override
 	public Case createCaseInput(CrimeAnalysisServiceImpl processor,PrintDetailsImpl ouput) {
-        LinkedHashSet<Incident> incidents= new LinkedHashSet<>();
+        List<Incident> incidents= new LinkedList<>();
         
         System.out.println("Enter Case Title : ");
         String caseTitle= scanner.nextLine();
@@ -453,7 +458,7 @@ public class GetInputImpl implements GetInput {
 		String addIncidentOption =scanner.nextLine();
 		
 		if(addIncidentOption.equalsIgnoreCase("yes")) {
-			processor.addIncident(new LinkedHashSet<>( caseObject.getIncidents()), this, output);
+			processor.addIncident(caseObject.getIncidents(), this, output);
 		}
 		
 		return processor.updateCaseDetails(caseObject);
